@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSH Chatranks</title>
+    <style>
+        body {
+            background-color: #2f2f2f;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            border: 10px solid transparent;
+            border-image: linear-gradient(45deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
+            border-image-slice: 1;
+            animation: borderAnimation 3s infinite linear;
+        }
+
+        h1, h2 {
+            color: #f0f0f0;
+        }
+
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background-color: #3a3a3a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background-color: #3a3a3a;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border: 2px solid #444;
+            border-radius: 5px;
+        }
+
+        /* Animation for border */
+        @keyframes borderAnimation {
+            0% {
+                border-image-source: linear-gradient(45deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
+            }
+            50% {
+                border-image-source: linear-gradient(135deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
+            }
+            100% {
+                border-image-source: linear-gradient(45deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: purple;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            animation: particleAnimation 0.5s forwards;
+        }
+
+        @keyframes particleAnimation {
+            to {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #f0f0f0; font-size: 4em; text-align: center; margin-top: 0;">VSH Chatranks</h1>
+    <h2>Overview</h2>
+    <p><strong>VSH Chatranks</strong> is a Minecraft Add-on that allows you to create custom chat ranks, mute players, show dimensions, and much more! This add-on is designed to work with Minecraft version <strong>1.21.70</strong> and above.</p>
+
+    <h2>Features</h2>
+    <ul>
+        <li>Customizable <code>customName:</code> and <code>chatName:</code> tags.</li>
+        <li>Advanced features like chat ranks, mute options, and dimension control.</li>
+        <li>Fully compatible with Minecraft version 1.21.70.</li>
+    </ul>
+
+    <h2>Ownership</h2>
+    <p>This project is <strong>strictly owned</strong> by <strong>VSH</strong> and its creator <strong>XxVoidicxX</strong>. All rights reserved.</p>
+    <ul>
+        <li><strong>Creator and Owner:</strong> XxVoidicxX</li>
+        <li><strong>Official Discord:</strong> <a href="https://discord.gg/mcRyq4QSA2" target="_blank">VSH Discord Server</a></li>
+    </ul>
+    <p>By using this add-on, you acknowledge that VSH holds all ownership rights over this content and any modifications made to it. Redistribution or use outside of the intended purpose is prohibited without prior written permission from VSH.</p>
+
+    <h2>Installation</h2>
+    <ol>
+        <li>Download the add-on.</li>
+        <li>Place the add-on file in your Minecraft "behavior_packs" directory.</li>
+        <li>Enable the add-on in the world settings under Behavior Packs.</li>
+        <li>Enjoy the features of VSH Chatranks!</li>
+    </ol>
+
+    <h2>Support</h2>
+    <p>If you need help or have any issues, please reach out to the <strong>VSH</strong> team through our <a href="https://discord.gg/mcRyq4QSA2" target="_blank">Discord server</a>.</p>
+
+    <h2>License</h2>
+    <p>This project is licensed under the <strong>VSH</strong> Terms of Service. All rights to the code and content are retained by VSH and XxVoidicxX.</p>
+
+    <h2>===== Rank & Name Customization =====</h2>
+    <pre>
+<button onclick="copyToClipboard('rank:<rank>')">> rank:<rank></button> - Displays the normal chat rank next to the player's name in chat
+<button onclick="copyToClipboard('customName:<name>')">> customName:<name></button> - Changes the player's name above their model
+<button onclick="copyToClipboard('chatName:<name>')">> chatName:<name></button> - Changes the player's name in chat
+</pre>
+
+    <h2>===== Hiding Sections =====</h2>
+    <pre>
+<button onclick="copyToClipboard('hideName')">> hideName</button> - Hides the player's name above their model
+<button onclick="copyToClipboard('hideChatName')">> hideChatName</button> - Hides ranks in chat
+<button onclick="copyToClipboard('hideNameRank')">> hideNameRank</button> - Hides ranks next to the player's name above their model
+<button onclick="copyToClipboard('hideNameClan')">> hideNameClan</button> - Hides the clan tag from name above player model
+<button onclick="copyToClipboard('hideChatClan')">> hideChatClan</button> - Hides the clan tag from a player in chat
+</pre>
+
+    <h2>===== Mute & Spam Control =====</h2>
+    <pre>
+<button onclick="copyToClipboard('mute')">> mute</button> - Mutes the player and prevents them from sending messages in chat
+<button onclick="copyToClipboard('CRSpamSkip')">> CRSpamSkip</button> - Allows player to repeat messages
+<button onclick="copyToClipboard('CRDelaySkip')">> CRDelaySkip</button> - Allows player to message without waiting
+</pre>
+
+    <h2>===== Configuration Options =====</h2>
+    <pre>
+<button onclick="copyToClipboard('config:health')">> config:health</button> - Displays the player's health in a 20/20 format below their name
+<button onclick="copyToClipboard('config:dimension')">> config:dimension</button> - Shows the dimension next to the player in chat
+</pre>
+
+    <h2>===== Clan Tag =====</h2>
+    <pre>
+<button onclick="copyToClipboard('clantag:<Name>')">> clantag:<Name></button> - The clan tag that appears before a name (Preferably 4-6 characters | Only supports 1 and oldest clantag applied)
+</pre>
+
+    <h3>Example:</h3>
+    <pre>
+/tag @s add rank:Cool
+/tag playerName rank:Cool
+</pre>
+
+    <h3>Supported rank formats:</h3>
+    <pre>
+'rank:', 'r:', 'Rank:', 'role:', 'title:', 'R:'
+</pre>
+
+    <script>
+        function copyToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            alert("Copied: " + text);
+        }
+    </script>
+
+    <h2>Structure</h2>
+    <img src="tree.png" alt="Tree Structure">
+
+    <script>
+        document.body.addEventListener('mousemove', function (event) {
+            var particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${event.pageX - 12}px`;
+            particle.style.top = `${event.pageY - 15}px`;
+            document.body.appendChild(particle);
+            setTimeout(() => {
+                particle.remove();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
