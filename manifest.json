@@ -1,34 +1,56 @@
 {
-  "format_version": 2,
-  "header": {
-    "name": "VSH Chatranks | 1.0.11 (1.21.70)",
-    "description": "NEW: Updated to 1.21.70 and added tags |\n Run -chatranks to see tags! |\n Chat Ranks, mute, dimension, and more! | By: @xxvoidicxx",
-    "uuid": "7c312332-ec3f-4f13-a5cd-2a22414913b4",
-    "version": [1, 0, 11],
-    "min_engine_version": [1, 21, 0]
-  },
-  "modules": [
-    {
-      "type": "data",
-      "uuid": "235b242c-e1f1-4dc3-9213-2a3bf022ecba",
-      "version": [1, 0, 11]
-    },
-    {
-      "language": "javascript",
-      "type": "script",
-      "uuid": "0b82d4ad-f473-423a-4426-ee2d219c41fb",
-      "version": "1.0.5",
-      "entry": "scripts/index.js"
-    }
-  ],
-  "metadata": {
-    "authors": ["XxVoidicxX"],
-    "url": "https://discord.gg/mcRyq4QSA2"
-  },
-  "dependencies": [
-    {
-      "module_name": "@minecraft/server",
-      "version": "2.0.0-beta"
-    }
-  ]
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"XxVoidicxX"
+		],
+		"url": "https://discord.gg/mcRyq4QSA2",
+		"generated_with": {
+			"bridge": [
+				"2.7.48"
+			],
+			"dash": [
+				"0.11.7"
+			]
+		}
+	},
+	"header": {
+		"name": "VSH Chatranks | 1.0.13 (1.21.90)",
+		"description": "LATEST: Replaced backend to use Tellraw |\n Run -chatranks to see tags! |\n Chat Ranks, mute, dimension, and more! | By: @xxvoidicxx",
+		"min_engine_version": [
+			1,
+			21,
+			80
+		],
+		"uuid": "85ed674d-9627-474d-8343-46b82013e37b",
+		"version": [
+			1,
+			0,
+			13
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "cf5b8f46-af64-40e3-b456-72b2dfca9124",
+			"version": [
+				1,
+				0,
+				13
+			]
+		},
+		{
+			"language": "javascript",
+			"type": "script",
+			"uuid": "0b82d4ad-f473-423a-4426-ee2d219c41fb",
+			"version": "1.0.5",
+			"entry": "scripts/index.js"
+		}
+	],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "2.1.0-beta"
+		}
+	]
 }

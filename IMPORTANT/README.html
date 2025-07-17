@@ -3,193 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VSH Chatranks</title>
+    <title>VSH Chatranks | Minecraft BE Addon</title>
     <style>
-        body {
-            background-color: #2f2f2f;
-            color: #e0e0e0;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        :root {
+            --primary: #8a2be2;
+            --secondary: #ff1493;
+            --dark: #1a1a1a;
+            --darker: #121212;
+            --light: #e0e0e0;
+            --lighter: #f0f0f0;
+            --accent: #1e90ff;
+            --success: #4CAF50;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(138, 43, 226, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0); }
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #1a1a1a, #121212, #1a1a1a, #121212);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
             position: relative;
-            border: 10px solid transparent;
-            border-image: linear-gradient(45deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
-            border-image-slice: 1;
-            animation: borderAnimation 3s infinite linear;
+            overflow: hidden;
         }
 
-        h1, h2 {
-            color: #f0f0f0;
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
         }
 
-        a {
-            color: #1e90ff;
-            text-decoration: none;
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .hero {
+            position: relative;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--lighter);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--lighter);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: -1.2rem;
+            color: var(--primary);
         }
 
         code {
-            background-color: #3a3a3a;
-            padding: 2px 6px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
             border-radius: 4px;
-            font-family: monospace;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
         }
 
         pre {
-            background-color: #3a3a3a;
-            padding: 10px;
-            border-radius: 5px;
+            background: var(--darker);
+            padding: 1rem;
+            border-radius: 8px;
             overflow-x: auto;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary);
+            position: relative;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-            border: 2px solid #444;
+        .command-block {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .command-block:hover {
+            background: rgba(30, 30, 30, 0.7);
+        }
+
+        .command-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
             border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Animation for border */
-        @keyframes borderAnimation {
-            0% {
-                border-image-source: linear-gradient(45deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
-            }
-            50% {
-                border-image-source: linear-gradient(135deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
-            }
-            100% {
-                border-image-source: linear-gradient(45deg, #8a2be2, #ff1493, #8a2be2, #ff1493);
-            }
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn::after {
+            content: 'Copy';
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+        }
+
+        .copy-btn.copied::after {
+            content: 'Copied!';
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--lighter);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
+            margin: 2rem 0;
+        }
+
+        .owner-card {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 20, 147, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .owner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 20, 147, 0.05), transparent);
+        }
+
+        .owner-card h3 {
+            color: var(--secondary);
         }
 
         .particle {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: purple;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             border-radius: 50%;
             pointer-events: none;
-            opacity: 1;
-            animation: particleAnimation 0.5s forwards;
+            opacity: 0.7;
+            z-index: 1;
+            animation: particleFade 1s forwards;
         }
 
-        @keyframes particleAnimation {
-            to {
-                transform: scale(0);
-                opacity: 0;
+        @keyframes particleFade {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .glow {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            z-index: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <h1 style="color: #f0f0f0; font-size: 4em; text-align: center; margin-top: 0;">VSH Chatranks</h1>
-    <h2>Overview</h2>
-    <p><strong>VSH Chatranks</strong> is a Minecraft Add-on that allows you to create custom chat ranks, mute players, show dimensions, and much more! This add-on is designed to work with Minecraft version <strong>1.21.70</strong> and above.</p>
+    <div class="container">
+        <header>
+            <div class="glow" style="top: -50px; left: -50px;"></div>
+            <div class="glow" style="bottom: -50px; right: -50px;"></div>
+            <h1>VSH Chatranks</h1>
+            <p class="subtitle">Advanced chat customization and player management for Minecraft Bedrock Edition</p>
+        </header>
 
-    <h2>Features</h2>
-    <ul>
-        <li>Customizable <code>customName:</code> and <code>chatName:</code> tags.</li>
-        <li>Advanced features like chat ranks, mute options, and dimension control.</li>
-        <li>Fully compatible with Minecraft version 1.21.70.</li>
-    </ul>
+        <section class="hero">
+            <div class="section">
+                <h2>Overview</h2>
+                <p><strong>VSH Chatranks</strong> is a powerful Minecraft Bedrock Edition addon that revolutionizes player communication with customizable chat ranks, name modifications, mute controls, and dimension display features. Designed specifically for version <span class="badge">1.21.70+</span>, this addon brings server management to the next level.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>Customizable Ranks</h3>
+                        <p>Create visually distinct player hierarchies with fully customizable rank displays in chat and above player models.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Name Management</h3>
+                        <p>Separate in-game names from chat names, with options to hide either display for complete control.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Player Moderation</h3>
+                        <p>Comprehensive mute system with spam protection to maintain chat quality and prevent abuse.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <h2>Ownership</h2>
-    <p>This project is <strong>strictly owned</strong> by <strong>VSH</strong> and its creator <strong>XxVoidicxX</strong>. All rights reserved.</p>
-    <ul>
-        <li><strong>Creator and Owner:</strong> XxVoidicxX</li>
-        <li><strong>Official Discord:</strong> <a href="https://discord.gg/mcRyq4QSA2" target="_blank">VSH Discord Server</a></li>
-    </ul>
-    <p>By using this add-on, you acknowledge that VSH holds all ownership rights over this content and any modifications made to it. Redistribution or use outside of the intended purpose is prohibited without prior written permission from VSH.</p>
+        <section class="section">
+            <h2>Key Features</h2>
+            <ul>
+                <li><strong>Dual Name System:</strong> Separate <code>customName:</code> (above player model) and <code>chatName:</code> (in chat) tags for complete naming flexibility</li>
+                <li><strong>Rank Display:</strong> Customizable <code>rank:</code> tags that appear next to player names in chat</li>
+                <li><strong>Clan Tags:</strong> Support for clan/group identifiers with <code>clantag:</code> prefix</li>
+                <li><strong>Player Muting:</strong> <code>mute</code> tag to silence players completely</li>
+                <li><strong>Spam Protection:</strong> Built-in delay and repeat prevention with override options</li>
+                <li><strong>Visual Indicators:</strong> Show player health and current dimension in chat</li>
+                <li><strong>Selective Visibility:</strong> Hide specific elements like names, ranks, or clan tags</li>
+            </ul>
+        </section>
 
-    <h2>Installation</h2>
-    <ol>
-        <li>Download the add-on.</li>
-        <li>Place the add-on file in your Minecraft "behavior_packs" directory.</li>
-        <li>Enable the add-on in the world settings under Behavior Packs.</li>
-        <li>Enjoy the features of VSH Chatranks!</li>
-    </ol>
+        <section class="section">
+            <h2>Ownership & Rights</h2>
+            <div class="owner-card">
+                <h3>VSH | XxVoidicxX</h3>
+                <p>This project is <strong>strictly owned</strong> by <strong>VSH</strong> and its creator <strong>XxVoidicxX</strong>. All rights reserved.</p>
+                <p>By using this add-on, you acknowledge that VSH holds all ownership rights over this content and any modifications made to it. Redistribution or use outside of the intended purpose is prohibited without prior written permission from VSH.</p>
+            </div>
+        </section>
 
-    <h2>Support</h2>
-    <p>If you need help or have any issues, please reach out to the <strong>VSH</strong> team through our <a href="https://discord.gg/mcRyq4QSA2" target="_blank">Discord server</a>.</p>
+        <section class="section">
+            <h2>Installation Guide</h2>
+            <ol>
+                <li>Download the latest version of VSH Chatranks</li>
+                <li>Locate your Minecraft "behavior_packs" directory</li>
+                <li>Place the addon file in this directory</li>
+                <li>Create or edit a world and activate the pack in Behavior Packs settings</li>
+                <li>Configure your desired settings using the commands below</li>
+            </ol>
+        </section>
 
-    <h2>License</h2>
-    <p>This project is licensed under the <strong>VSH</strong> Terms of Service. All rights to the code and content are retained by VSH and XxVoidicxX.</p>
+        <section class="section">
+            <h2>Command Reference</h2>
+            
+            <h3>Rank & Name Customization</h3>
+            <div class="command-block">
+                <div class="command-text">rank:&lt;rank&gt;</div>
+                <button class="copy-btn" data-cmd="rank:&lt;rank&gt;"></button>
+            </div>
+            <p>Displays the normal chat rank next to the player's name in chat</p>
+            
+            <div class="command-block">
+                <div class="command-text">customName:&lt;name&gt;</div>
+                <button class="copy-btn" data-cmd="customName:&lt;name&gt;"></button>
+            </div>
+            <p>Changes the player's name above their model</p>
+            
+            <div class="command-block">
+                <div class="command-text">chatName:&lt;name&gt;</div>
+                <button class="copy-btn" data-cmd="chatName:&lt;name&gt;"></button>
+            </div>
+            <p>Changes the player's name in chat</p>
+            
+            <div class="divider"></div>
+            
+            <h3>Hiding Sections</h3>
+            <div class="command-block">
+                <div class="command-text">hideName</div>
+                <button class="copy-btn" data-cmd="hideName"></button>
+            </div>
+            <p>Hides the player's name above their model</p>
+            
+            <div class="command-block">
+                <div class="command-text">hideChatName</div>
+                <button class="copy-btn" data-cmd="hideChatName"></button>
+            </div>
+            <p>Hides ranks in chat</p>
+            
+            <div class="command-block">
+                <div class="command-text">hideNameRank</div>
+                <button class="copy-btn" data-cmd="hideNameRank"></button>
+            </div>
+            <p>Hides ranks next to the player's name above their model</p>
+            
+            <div class="divider"></div>
+            
+            <h3>Mute & Spam Control</h3>
+            <div class="command-block">
+                <div class="command-text">mute</div>
+                <button class="copy-btn" data-cmd="mute"></button>
+            </div>
+            <p>Mutes the player and prevents them from sending messages in chat</p>
+            
+            <div class="command-block">
+                <div class="command-text">CRSpamSkip</div>
+                <button class="copy-btn" data-cmd="CRSpamSkip"></button>
+            </div>
+            <p>Allows player to repeat messages</p>
+            
+            <div class="command-block">
+                <div class="command-text">CRDelaySkip</div>
+                <button class="copy-btn" data-cmd="CRDelaySkip"></button>
+            </div>
+            <p>Allows player to message without waiting</p>
+            
+            <div class="divider"></div>
+            
+            <h3>Configuration Options</h3>
+            <div class="command-block">
+                <div class="command-text">config:health</div>
+                <button class="copy-btn" data-cmd="config:health"></button>
+            </div>
+            <p>Displays the player's health in a 20/20 format below their name</p>
+            
+            <div class="command-block">
+                <div class="command-text">config:dimension</div>
+                <button class="copy-btn" data-cmd="config:dimension"></button>
+            </div>
+            <p>Shows the dimension next to the player in chat</p>
+            
+            <div class="divider"></div>
+            
+            <h3>Clan Tag</h3>
+            <div class="command-block">
+                <div class="command-text">clantag:&lt;Name&gt;</div>
+                <button class="copy-btn" data-cmd="clantag:&lt;Name&gt;"></button>
+            </div>
+            <p>The clan tag that appears before a name (Preferably 4-6 characters | Only supports 1 and oldest clantag applied)</p>
+            
+            <h3>Example Usage</h3>
+            <pre>/tag @s add rank:Cool
+/tag playerName rank:Cool</pre>
+            
+            <h3>Supported Rank Formats</h3>
+            <pre>'rank:', 'r:', 'Rank:', 'role:', 'title:', 'R:'</pre>
+        </section>
 
-    <h2>===== Rank & Name Customization =====</h2>
-    <pre>
-<button onclick="copyToClipboard('rank:<rank>')">> rank:<rank></button> - Displays the normal chat rank next to the player's name in chat
-<button onclick="copyToClipboard('customName:<name>')">> customName:<name></button> - Changes the player's name above their model
-<button onclick="copyToClipboard('chatName:<name>')">> chatName:<name></button> - Changes the player's name in chat
-</pre>
+        <section class="section">
+            <h2>Support & Community</h2>
+            <p>For assistance, feature requests, or to connect with other users:</p>
+            <ul>
+                <li><strong>Official Discord:</strong> Join our community for support and updates</li>
+                <li><strong>Bug Reports:</strong> Please report any issues through Discord</li>
+                <li><strong>Feature Suggestions:</strong> We welcome ideas for future improvements</li>
+            </ul>
+        </section>
 
-    <h2>===== Hiding Sections =====</h2>
-    <pre>
-<button onclick="copyToClipboard('hideName')">> hideName</button> - Hides the player's name above their model
-<button onclick="copyToClipboard('hideChatName')">> hideChatName</button> - Hides ranks in chat
-<button onclick="copyToClipboard('hideNameRank')">> hideNameRank</button> - Hides ranks next to the player's name above their model
-<button onclick="copyToClipboard('hideNameClan')">> hideNameClan</button> - Hides the clan tag from name above player model
-<button onclick="copyToClipboard('hideChatClan')">> hideChatClan</button> - Hides the clan tag from a player in chat
-</pre>
-
-    <h2>===== Mute & Spam Control =====</h2>
-    <pre>
-<button onclick="copyToClipboard('mute')">> mute</button> - Mutes the player and prevents them from sending messages in chat
-<button onclick="copyToClipboard('CRSpamSkip')">> CRSpamSkip</button> - Allows player to repeat messages
-<button onclick="copyToClipboard('CRDelaySkip')">> CRDelaySkip</button> - Allows player to message without waiting
-</pre>
-
-    <h2>===== Configuration Options =====</h2>
-    <pre>
-<button onclick="copyToClipboard('config:health')">> config:health</button> - Displays the player's health in a 20/20 format below their name
-<button onclick="copyToClipboard('config:dimension')">> config:dimension</button> - Shows the dimension next to the player in chat
-</pre>
-
-    <h2>===== Clan Tag =====</h2>
-    <pre>
-<button onclick="copyToClipboard('clantag:<Name>')">> clantag:<Name></button> - The clan tag that appears before a name (Preferably 4-6 characters | Only supports 1 and oldest clantag applied)
-</pre>
-
-    <h3>Example:</h3>
-    <pre>
-/tag @s add rank:Cool
-/tag playerName rank:Cool
-</pre>
-
-    <h3>Supported rank formats:</h3>
-    <pre>
-'rank:', 'r:', 'Rank:', 'role:', 'title:', 'R:'
-</pre>
+        <footer>
+            <p>© 2025 VSH | XxVoidicxX. All rights reserved.</p>
+            <p>Minecraft is a trademark of Mojang Studios. This is an unofficial addon not affiliated with Mojang or Microsoft.</p>
+        </footer>
+    </div>
 
     <script>
-        function copyToClipboard(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textArea);
-            alert("Copied: " + text);
-        }
-    </script>
-
-    <h2>Structure</h2>
-    <img src="tree.png" alt="Tree Structure">
-
-    <script>
-        document.body.addEventListener('mousemove', function (event) {
-            var particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = `${event.pageX - 12}px`;
-            particle.style.top = `${event.pageY - 15}px`;
-            document.body.appendChild(particle);
+        // Particle effect on mouse move
+        document.addEventListener('mousemove', function(e) {
+            const particles = document.createElement('span');
+            particles.classList.add('particle');
+            particles.style.left = e.pageX + 'px';
+            particles.style.top = e.pageY + 'px';
+            document.body.appendChild(particles);
+            
             setTimeout(() => {
-                particle.remove();
-            }, 500);
+                particles.remove();
+            }, 1000);
+        });
+
+        // Copy button functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const command = this.getAttribute('data-cmd');
+                navigator.clipboard.writeText(command).then(() => {
+                    this.classList.add('copied');
+                    setTimeout(() => {
+                        this.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(section);
+        });
+
+        // Glow effect animation
+        const glows = document.querySelectorAll('.glow');
+        glows.forEach((glow, index) => {
+            setInterval(() => {
+                const size = 80 + Math.random() * 40;
+                glow.style.width = `${size}px`;
+                glow.style.height = `${size}px`;
+                glow.style.opacity = 0.2 + Math.random() * 0.3;
+            }, 3000 + index * 1000);
         });
     </script>
 </body>

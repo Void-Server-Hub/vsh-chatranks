@@ -1,63 +1,63 @@
 import * as utilities from "../../Configs/Config.js";
-import { COLORS, COLORSYMBOLLIST, GRADIENTS } from "../Colors/ColorsConstant.js";
+import { COLORS, COLORSYMBOLLIST, GRADIENTS } from "../../Configs/Config.js";
 
 export default class CustomText {
-  
-  setRainbow(randomRainbow = false) {
-    let newText = [];
-    let number;
 
-    number = randomRainbow ? utilities.getRandomInt(0, COLORSYMBOLLIST.length - 2) : 0;
+    setRainbow(randomRainbow = false) {
+        let newText = [];
+        let number;
 
-    for (let i = 0; i < this.text.length; i++) {
-      if (number > COLORSYMBOLLIST.length - 2) number = 0;
+        number = randomRainbow ? utilities.getRandomInt(0, COLORSYMBOLLIST.length - 2) : 0;
 
-      const letter = this.text[i];
-      const color = COLORSYMBOLLIST[number];
+        for (let i = 0; i < this.text.length; i++) {
+            if (number > COLORSYMBOLLIST.length - 2) number = 0;
 
-      if (letter === ' ') {
-        newText.push(letter);
-      } else {
-        newText.push(color + letter);
-      }
+            const letter = this.text[i];
+            const color = COLORSYMBOLLIST[number];
 
-      number++;
+            if (letter === ' ') {
+                newText.push(letter);
+            } else {
+                newText.push(color + letter);
+            }
+
+            number++;
+        }
+
+        newText.push('§r');
+
+        return newText.join('');
     }
 
-    newText.push('§r');
+    setGradient(gradientColor, randomRainbow = false) {
+        let newText = [];
+        let number;
 
-    return newText.join('');
-  }
+        number = randomRainbow ? utilities.getRandomInt(0, GRADIENTS[gradientColor].length - 2) : 0;
 
-  setGradient(gradientColor, randomRainbow = false) {
-    let newText = [];
-    let number;
+        for (let i = 0; i < this.text.length; i++) {
+            if (number > GRADIENTS[gradientColor].length - 2) {
+                number = 0;
+            }
 
-    number = randomRainbow ? utilities.getRandomInt(0, GRADIENTS[gradientColor].length - 2) : 0;
+            const letter = this.text[i];
+            const color = GRADIENTS[gradientColor][number];
 
-    for (let i = 0; i < this.text.length; i++) {
-      if (number > GRADIENTS[gradientColor].length - 2) {
-        number = 0;
-      }
+            if (letter === ' ') {
+                newText.push(letter);
+            } else {
+                newText.push(color + letter);
+            }
 
-      const letter = this.text[i];
-      const color = GRADIENTS[gradientColor][number];
+            number++;
+        }
 
-      if (letter === ' ') {
-        newText.push(letter);
-      } else {
-        newText.push(color + letter);
-      }
+        newText.push('§r');
 
-      number++;
+        return newText.join('');
     }
 
-    newText.push('§r');
-
-    return newText.join('');
-  }
-
-  constructor(text) {
-    this.text = text;
-  }
+    constructor(text) {
+        this.text = text;
+    }
 }

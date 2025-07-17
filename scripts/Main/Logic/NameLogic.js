@@ -1,5 +1,5 @@
 import { world } from '@minecraft/server';
-import { RANK_PREFIX, DEFAULT_RANK } from "../Configs/Config.js";
+import { RANK_PREFIX, DEFAULT_RANK, CREATOR_RANK, GRADIENTS } from "../Configs/Config.js"
 
 function updateNameTags(player) {
     try {
@@ -19,9 +19,14 @@ function updateNameTags(player) {
             RANK_PREFIX.some(prefix => tag.startsWith(prefix))
         );
 
-        rankPrefix = rankTags.length > 0
-            ? rankTags.map(tag => `§r§7[§f${tag.split(':')[1]}§r§7]`).join(' ')
-            : `§r§7[§f${DEFAULT_RANK}§r§7]`;
+        if (player.name === "XxVoidicxX" && rankTags.length === 0) {
+            rankPrefix = `§r§7[§f${CREATOR_RANK}§r§7]`;
+            displayName = `${GRADIENTS.purple}${displayName}§r`;
+        } else {
+            rankPrefix = rankTags.length > 0
+                ? rankTags.map(tag => `§r§7[§f${tag.split(':')[1]}§r§7]`).join(' ')
+                : `§r§7[§f${DEFAULT_RANK}§r§7]`;
+        }
 
         let clanTag = '';
         const playerClanTag = player.getTags().find(tag => tag.startsWith('clanTag:'));
@@ -44,15 +49,15 @@ function updateNameTags(player) {
             healthDisplay = `\n§c${health}§4/§c${maxHealth}`;
         }
 
-        player.nameTag = 
+        player.nameTag =
             `${rankPrefix}${clanTag ? ' ' + clanTag : ''} ${displayName}${healthDisplay}`.trim();
     } catch (error) {
         console.error(`Error updating name tag for player ${player.name}: ${error.message}`);
     }
 }
 
-if (!RANK_PREFIX || !DEFAULT_RANK) {
-    console.error("Config health issue: RANK_PREFIX or DEFAULT_RANK is not defined properly in Config.js");
+if (!RANK_PREFIX || !DEFAULT_RANK || !CREATOR_RANK || !GRADIENTS) {
+    console.error("Config health issue: RANK_PREFIX, DEFAULT_RANK, CREATOR_RANK, or GRADIENT is not defined properly in Config.js");
 }
 
 export { updateNameTags };
